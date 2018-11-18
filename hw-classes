@@ -1,0 +1,58 @@
+class Animals:
+    pass
+
+    def __init__(self, name, voice, feed, weight):
+        self.name = name
+        self.voice = voice
+        self.feed = feed
+        self.weight = weight
+
+
+goose_0 = Animals('Серый', 'Г-у-у-сь', True, 10)
+goose_0.eggs = True
+goose_1 = Animals('Белый', 'Г-у-у-сь', True, 10)
+goose_1.eggs = True
+
+cow = Animals('Манька', 'М-у-у', True, 100)
+cow.milk = True
+
+sheep_0 = Animals('Барашек', 'Овечка', True, 50)
+sheep_1 = Animals('Кудрявый', 'Овечка', True, 50)
+
+chicken_0 = Animals ('Ко-ко', 'Курочка', True, 10)
+chicken_0.eggs = True
+chicken_1 = Animals ('Кукареку', 'Курочка', True, 10)
+chicken_1.eggs = True
+
+goat_0 = Animals ('Рога', 'Козочка', True, 10)
+goat_0.cut = True
+goat_0.milk = True
+goat_1 = Animals ('Копыта', 'Козочка', True, 10)
+goat_1.cut = True
+goat_1.milk = True
+
+duck = Animals('Кряква', 'Уточка', True, 6)
+duck.eggs = True
+
+new_list = list()
+new_list.append(goose_0.__dict__)
+new_list.append(goose_1.__dict__)
+new_list.append(cow.__dict__)
+new_list.append(sheep_0.__dict__)
+new_list.append(sheep_1.__dict__)
+new_list.append(chicken_0.__dict__)
+new_list.append(chicken_1.__dict__)
+new_list.append(goat_0.__dict__)
+new_list.append(goat_1.__dict__)
+new_list.append(duck.__dict__)
+
+
+
+new_list_2 = new_list.copy()
+def sum_average_weight(animals):
+    weight = 0
+    for info in new_list_2:
+        weight += info['weight']
+    print('Общий вес всех животных: {}\nСамое тяжелое животное {} весом {}кг.'.format(weight, cow.name, cow.weight))
+
+sum_average_weight(new_list_2)
