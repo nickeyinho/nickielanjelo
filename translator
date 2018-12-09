@@ -16,6 +16,7 @@ txt_files_list = os.listdir(txt_files_dir)
 
 
 API_KEY = 'trnsl.1.1.20161025T233221Z.47834a66fd7895d0.a95fd4bfde5c1794fa433453956bd261eae80152'
+# trnsl.1.1.20181208T084038Z.7253ba699ba682b1.a7f060956bcbd4bde9668222c09b20467903bad7
 URL = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
 new_dict = {}
 text_news = ''
@@ -31,7 +32,7 @@ def open_txt_file():
         if from_lang == keys:
             with open (new_dict[from_lang], 'r') as f:
                 text_news = f.read()
-
+open_txt_file()
 
 # Переводим текст
 def translate_it(text_news, from_lang, to_lang):
@@ -44,20 +45,12 @@ def translate_it(text_news, from_lang, to_lang):
     response = requests.get(URL, params=params)
     json_ = response.json()
     return ''.join(json_['text'])
-
+translate_it(text_news, from_lang, to_lang)
 #Сохраняем текст в переменную
 after_translate = translate_it(text_news, from_lang, to_lang)
-
+print(after_translate)
 # Записываем новый файл с переводом
 def record_new_file():
     with open (new_txt_files_dir, 'w') as f:
     f.write(after_translate)
-
-
-
-
-
-# print(translate_it('В настоящее время доступна единственная опция — признак включения в ответ автоматически определенного языка переводимого текста. Этому соответствует значение 1 этого параметра.', 'no'))
-
-
-requests.post('http://requestb.in/10vc0zh1', json=dict(a='goo', b='foo'))
+# record_new_file()
