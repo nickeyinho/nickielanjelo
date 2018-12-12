@@ -1,58 +1,108 @@
 class Animals:
-    pass
-
-    def __init__(self, name, voice, feed, weight):
+    def __init__(self, name, weight, voice):
         self.name = name
-        self.voice = voice
-        self.feed = feed
         self.weight = weight
+        self.voice = voice
+
+    def to_feed(self):
+        print('feed', self.name)
+
+    def voice(self):
+        print('voice', self.name, self.voice)
+
+    def product(self):
+        raise NotImplementedError("Please Implement this method")
 
 
-goose_0 = Animals('Серый', 'Г-у-у-сь', True, 10)
-goose_0.eggs = True
-goose_1 = Animals('Белый', 'Г-у-у-сь', True, 10)
-goose_1.eggs = True
+class Sheep(Animals):
+    def __init__(self, name, weight):
+        super().__init__(name, weight, 'I am Sheep')
 
-cow = Animals('Манька', 'М-у-у', True, 100)
-cow.milk = True
+    def cut(self):
+        print('cut', self.name)
 
-sheep_0 = Animals('Барашек', 'Овечка', True, 50)
-sheep_1 = Animals('Кудрявый', 'Овечка', True, 50)
-
-chicken_0 = Animals ('Ко-ко', 'Курочка', True, 10)
-chicken_0.eggs = True
-chicken_1 = Animals ('Кукареку', 'Курочка', True, 10)
-chicken_1.eggs = True
-
-goat_0 = Animals ('Рога', 'Козочка', True, 10)
-goat_0.cut = True
-goat_0.milk = True
-goat_1 = Animals ('Копыта', 'Козочка', True, 10)
-goat_1.cut = True
-goat_1.milk = True
-
-duck = Animals('Кряква', 'Уточка', True, 6)
-duck.eggs = True
-
-new_list = list()
-new_list.append(goose_0.__dict__)
-new_list.append(goose_1.__dict__)
-new_list.append(cow.__dict__)
-new_list.append(sheep_0.__dict__)
-new_list.append(sheep_1.__dict__)
-new_list.append(chicken_0.__dict__)
-new_list.append(chicken_1.__dict__)
-new_list.append(goat_0.__dict__)
-new_list.append(goat_1.__dict__)
-new_list.append(duck.__dict__)
+    def product(self):
+        self.cut()
 
 
+class Milk_animal(Animals):
+    def milk(self):
+        print('milk', self.name)
 
-new_list_2 = new_list.copy()
-def sum_average_weight(animals):
-    weight = 0
-    for info in new_list_2:
-        weight += info['weight']
-    print('Общий вес всех животных: {}\nСамое тяжелое животное {} весом {}кг.'.format(weight, cow.name, cow.weight))
+    def product(self):
+        self.milk()
 
-sum_average_weight(new_list_2)
+
+class Cow(Milk_animal):
+    def __init__(self, name, weight):
+        super().__init__(name, weight, 'I am Cow')
+
+
+class Goat(Milk_animal):
+    def __init__(self, name, weight):
+        super().__init__(name, weight, 'I am Goat')
+
+
+class Bird(Animals):
+    def __init__(self, name, weight, voice):
+        super().__init__(name, weight, voice)
+
+    def to_egg(self):
+        print('egg', self.name)
+
+    def product(self):
+        self.to_egg()
+
+
+class Goose(Bird):
+    def __init__(self, name, weight):
+        super().__init__(name, weight, 'I am Goose')
+
+
+class Chicken(Bird):
+    def __init__(self, name, weight):
+        super().__init__(name, weight, 'I am Chick')
+
+
+class Duck(Bird):
+    def __init__(self, name, weight):
+        super().__init__(name, weight, 'I am Duck')
+
+
+#Для каждого животного из списка должен существовать экземпляр класса.'
+
+goose1 = Goose('Gray', 3)
+goose2 = Goose('White', 2.8)
+cow = Cow("Mumu", 55)
+sheep1 = Sheep('Sheepster', 30)
+sheep2 = Sheep('Sheepman', 35)
+goat1 = Goat('Roga', 5)
+goat2 = Goat('Kopyta', 5.5)
+chicken1 = Chicken('Ko-Ko', 2)
+chicken2 = Chicken('Kuka-reku', 1.9)
+duck = Duck('Kryakva', 1.9)
+animals = [goose1, goose2, cow, sheep1, sheep2, chicken1, chicken2, goat1, goat2, duck]
+
+# Каждое животное требуется накормить и подоить/постричь/собрать яйца, если надо.'
+for animal in animals:
+    animal.to_feed()
+print('--product animals')
+for animal in animals:
+    animal.product()
+
+print('\n')
+
+# Необходимо посчитать общий вес всех животных(экземпляров класса);
+total_weight = 0
+heaviest_animal = None
+for animal in animals:
+    total_weight += animal.weight
+print('Общий вес: {}'.format(total_weight))
+
+# Вывести название самого тяжелого животного.
+for animal in animals:
+    if heaviest_animal is None:
+        heaviest_animal = animal
+    elif animal.weight > heaviest_animal.weight:
+        heaviest_animal = animal
+print('Самое тяжелое животное: ', heaviest_animal.name, heaviest_animal.weight)
